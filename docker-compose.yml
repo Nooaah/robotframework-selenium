@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  robot:
+    build: .
+    volumes:
+      - ./tests:/tests
+    depends_on:
+      - selenium-firefox
+    networks:
+      - robot-network
+
+  selenium-firefox:
+    image: selenium/standalone-firefox:4.8.3-20230404
+    ports:
+      - "4444:4444"
+      - "7900:7900"
+    shm_size: '2g'
+    networks:
+      - robot-network
+
+networks:
+  robot-network:
